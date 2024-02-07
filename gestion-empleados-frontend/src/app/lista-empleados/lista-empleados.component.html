@@ -1,0 +1,17 @@
+<h2 class="text-center" style="margin-top:50px; margin-bottom: 50px;">Empleados registrados</h2>
+<table class="table table-striped">
+  <thead class="table-dark">
+    <tr>
+      <th>Nombre</th>
+      <th>Apellido</th>
+      <th>Email</th>
+    </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let empleado of empleados">
+    <td>{{empleado.nombre}}</td>
+    <td>{{empleado.apellido}}</td>
+    <td>{{empleado.email}}</td>
+  </tr>
+  </tbody>
+</table>
