@@ -7,11 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/")
-@CrossOrigin(origins = "http://localhost:4200") //Para el intercambio entre front y back por parte de HttpClient | El origen es el path del front
+@CrossOrigin(origins = "http://localhost:4200")     //Para el intercambio entre front y back por parte de HttpClient | El origen es el path del front
 public class EmpleadoController { //Para acceder a la docu swagger -> localhost:8080/swagger-ui.html
 
     @Autowired
@@ -22,16 +24,19 @@ public class EmpleadoController { //Para acceder a la docu swagger -> localhost:
         return this.repository.findAll();
     }
 
+
     @PostMapping("/empleados")
     public Empleado guardarEmpleado(@RequestBody Empleado empleado){
         return this.repository.save(empleado);
     }
+
 
     @GetMapping("/empleados/{id}")
     public ResponseEntity<Empleado> obtenerEmpleadoPorId(@PathVariable Long id){
         Empleado empleado = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Empleado no encontrado con el id " + id + "\n"));
         return ResponseEntity.ok(empleado);
     }
+
 
     @PutMapping("/empleados/{id}")
     public ResponseEntity<Empleado> actualizarEmpleado(@PathVariable Long id, @RequestBody Empleado detallesEmpleado){
@@ -44,5 +49,16 @@ public class EmpleadoController { //Para acceder a la docu swagger -> localhost:
         Empleado empleadoActualizado = this.repository.save(empleado);
 
         return ResponseEntity.ok(empleadoActualizado);
+    }
+
+    @DeleteMapping("/empleados/{id}")
+    public ResponseEntity<Map<String,Boolean>> eliminarEmpleado(@PathVariable Long id){
+        Empleado empleado = repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("No existe el empleado con el ID : " + id));
+
+        repository.delete(empleado);
+        Map<String, Boolean> respuesta = new HashMap<>();
+        respuesta.put("eliminar",Boolean.TRUE);
+        return ResponseEntity.ok(respuesta);
     }
 }

@@ -4,6 +4,7 @@ import {Empleado} from "../empleado";
 import {FormsModule} from "@angular/forms";
 import {EmpleadoService} from "../empleado.service";
 import {Router} from "@angular/router";
+import Swal from "sweetalert2";
 
 @Component({
   selector: 'app-registrar-empleado',
@@ -30,6 +31,7 @@ export class RegistrarEmpleadoComponent implements OnInit{
 
   irAListaDeEmpleados(){
     this.router.navigate(['/empleados']);
+    Swal.fire('Empleado registrado',`El empleado ${this.empleado.nombre} ha sido registrado con éxito`,`success`);
   }
 
   onSubmit() {

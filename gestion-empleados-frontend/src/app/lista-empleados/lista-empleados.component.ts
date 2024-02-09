@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import { CommonModule } from '@angular/common'
 import {Empleado} from "../empleado";
 import {EmpleadoService} from "../empleado.service";
+import {Router} from "@angular/router";
+import Swal from "sweetalert2";
 
 @Component({
   selector: 'app-lista-empleados',
@@ -14,7 +16,7 @@ export class ListaEmpleadosComponent implements OnInit{
 
   empleados:Empleado[];
 
-  constructor(private empleadoServicio:EmpleadoService){}
+  constructor(private empleadoServicio:EmpleadoService, private router:Router){}
 
   ngOnInit(): void {
     this.obtenerEmpleados();
@@ -22,8 +24,34 @@ export class ListaEmpleadosComponent implements OnInit{
 
   private obtenerEmpleados(){
     this.empleadoServicio.obtenerListaDeEmpleados().subscribe(dato =>{
+      console.log(dato);
       this.empleados = dato;
     });
+  }
+
+  public actualizarEmpleado(id:number){
+    this.router.navigate(['actualizar-empleado',id]);
+  }
+
+  public eliminarEmpleado(id:number){
+    Swal.fire({
+      title: 'Estás seguro de que deseas eliminar al empleado?',
+      icon: "question",
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: 'Sí',
+      denyButtonText: 'No',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.empleadoServicio.eliminarEmpleado(id).subscribe(dato =>{
+          console.log(dato);
+          this.obtenerEmpleados();
+        });
+        Swal.fire('Saved!', '', 'success')
+      } else if (result.isDenied) {
+        Swal.fire('No se eliminó al empleado', '', 'info')
+      }
+    })
   }
 
 }

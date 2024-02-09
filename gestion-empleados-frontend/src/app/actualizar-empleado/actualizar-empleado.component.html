@@ -1,0 +1,19 @@
+<div class="col-md-6 offset-md-3">
+  <h2 class="text-center" style="font-weight: bolder">Actualización de un empleado</h2>
+  <form (ngSubmit)="onSubmit()">
+    <div class="form-group">
+
+      <div class="container" style="margin:15px; margin-top: 50px;">
+        <label style="margin-top: 20px;">Nombre : </label>
+        <input type="text" class="form-control" id="nombre" [(ngModel)]="empleado.nombre" name="nombre">
+        <label style="margin-top: 20px;">Apellido : </label>
+        <input type="text" class="form-control" id="apellido" [(ngModel)]="empleado.apellido" name="apellido">
+        <label style="margin-top: 20px;">Email : </label>
+        <input type="text" class="form-control" id="email" [(ngModel)]="empleado.email" name="email">
+        <button class="btn btn-warning btn-lg btn-block" style="margin-top: 20px;">Actualizar</button>
+      </div>
+
+    </div>
+  </form>
+</div>
+
