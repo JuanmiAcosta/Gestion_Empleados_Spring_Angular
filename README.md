@@ -23,7 +23,7 @@ Para este mini proyecto además he utilizado ciertas librerías de Javascript co
 
 * Java - Maven
 * Spring
-* SQL WorkBench
+* MySQL WorkBench
 * Angular
 * Typescript
 
