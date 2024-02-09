@@ -47,7 +47,7 @@ export class ListaEmpleadosComponent implements OnInit{
           console.log(dato);
           this.obtenerEmpleados();
         });
-        Swal.fire('Saved!', '', 'success')
+        Swal.fire('Empleado eliminado!', '', 'success')
       } else if (result.isDenied) {
         Swal.fire('No se eliminó al empleado', '', 'info')
       }
